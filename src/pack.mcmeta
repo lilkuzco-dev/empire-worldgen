@@ -1,0 +1,8 @@
+{
+  "pack": {
+    "id": "empire_worldgen",
+    "min_format": 107,
+    "max_format": 107,
+    "description": "Empire worldgen tuning"
+  }
+}

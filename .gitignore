@@ -1,0 +1,8 @@
+# generated survey data and test worlds — regenerate with tools/survey/
+*.npz
+runs/
+tsrv/
+vanreports*/
+tl/
+*.jar
+__pycache__/

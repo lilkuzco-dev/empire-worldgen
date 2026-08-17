@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "empire_worldgen",
+  "version": "0.1.0",
+  "name": "Empire Worldgen Tuning",
+  "description": "Pulls Terralith's high-erosion lowlands back toward vanilla terrain so flat plains and moderate ground return as connective tissue. Mountains, peaks and ocean basins are untouched. Blend strength 0.75. Data-only.",
+  "authors": [
+    "Lil Kuzco Empire"
+  ],
+  "license": "MIT",
+  "environment": "*",
+  "depends": {
+    "fabricloader": ">=0.19",
+    "lithostitched": ">=1.7.12"
+  }
+}
