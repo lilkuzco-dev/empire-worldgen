@@ -21,7 +21,7 @@ import json, os, shutil, sys, copy
 HERE = os.path.dirname(os.path.abspath(__file__))
 VN = os.path.join(HERE, "..", "vendor", "vanilla-26.2")
 NS = "empire_worldgen"
-F = float(sys.argv[1]) if len(sys.argv) > 1 else 0.75
+F = float(sys.argv[1]) if len(sys.argv) > 1 else 1.0
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "..", "src")
 
 MARK = {"type": "lithostitched:wrapped_marker"}
@@ -58,7 +58,7 @@ def main():
     os.makedirs(dfd); os.makedirs(modd)
 
     json.dump({
-        "schemaVersion": 1, "id": NS, "version": "0.1.0",
+        "schemaVersion": 1, "id": NS, "version": "0.2.0",
         "name": "Empire Worldgen Tuning",
         "description": ("Pulls Terralith's high-erosion lowlands back toward vanilla "
                         "terrain so flat plains and moderate ground return as connective "

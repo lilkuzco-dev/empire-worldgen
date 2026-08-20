@@ -57,28 +57,31 @@ every strength, unchanged from Terralith.
 
 ## Choosing F
 
-`F` is set at build time. **Shipped default F = 0.75**, ruled 2026-08-17.
+`F` is set at build time. **Current default F = 1.00**, ruled 2026-08-19 after
+playtesting found that too much ordinary land still read as overtly hilly at
+0.75. Mountain-band curves remain untouched, so the rarer ranges keep their
+full Terralith/vanilla scale and silhouette.
 
 Measured on 83,521 chunks per variant — same seed, same 4600×4600 area, terrain
 read out of the region files:
 
-| | vanilla | Terralith | F = 0.50 | **F = 0.75** | F = 1.00 |
+| | vanilla | Terralith | F = 0.50 | F = 0.75 | **F = 1.00** |
 |---|---|---|---|---|---|
-| open flat/gentle ground | 27.78 % | 26.26 % | 28.10 % | **29.55 %** | 30.75 % |
-| hilly land (12–25) | 11.83 % | 13.46 % | 11.89 % | **10.73 %** | 10.24 % |
-| mountainous land (>25) | 3.92 % | 5.51 % | 4.02 % | **3.78 %** | 3.60 % |
-| open water | 27.16 % | 25.94 % | 26.78 % | **27.21 %** | 27.72 % |
-| connective : feature | 3.90× | 3.07× | 3.82× | **4.33×** | 4.67× |
-| median land ground y | 67 | 72 | 70 | **69** | 67 |
-| p99 land ground y | 125 | 183 | 145 | **143** | 144 |
-| highest ground y | 170 | 245 | 245 | **245** | 245 |
+| open flat/gentle ground | 27.78 % | 26.26 % | 28.10 % | 29.55 % | **30.75 %** |
+| hilly land (12–25) | 11.83 % | 13.46 % | 11.89 % | 10.73 % | **10.24 %** |
+| mountainous land (>25) | 3.92 % | 5.51 % | 4.02 % | 3.78 % | **3.60 %** |
+| open water | 27.16 % | 25.94 % | 26.78 % | 27.21 % | **27.72 %** |
+| connective : feature | 3.90× | 3.07× | 3.82× | 4.33× | **4.67×** |
+| median land ground y | 67 | 72 | 70 | 69 | **67** |
+| p99 land ground y | 125 | 183 | 145 | 143 | **144** |
+| highest ground y | 170 | 245 | 245 | 245 | **245** |
 
 F = 0.50 only returns to vanilla parity (3.82× against vanilla's 3.90×) — it
 removes Terralith's excess without producing any surplus. F = 0.75 clears
-vanilla on every openness measure while keeping a quarter of the lowland lift
-and the full mountain range above it. F = 1.00 goes past the balance: median
-land y falls to exactly vanilla's 67, and rolling land drops to 16.73 %, *below*
-vanilla's 17.88 % — the middle of the range starts hollowing out.
+vanilla on every openness measure while keeping a quarter of the lowland lift.
+F = 1.00 is the intentional flatter-land setting: median land returns to
+vanilla's 67 and rolling land drops to 16.73 %, below vanilla's 17.88 %, while
+the full mountain range above it remains unchanged.
 
 **What F does not change: the biome-category breakdown.** Flat plains-family is
 7.50 % and ocean 19.72 % at F = 0, 0.50, 0.75 and 1.00 alike. The tuning moves
@@ -92,8 +95,8 @@ trades away Terralith biomes; deliberately not done.
 ## Build
 
 ```sh
-python3 tools/build-pack.py 0.75 src         # regenerate src/ at blend F
-cd src && zip -qr ../empire_worldgen-0.1.0.jar .
+python3 tools/build-pack.py 1.0 src          # regenerate src/ at blend F
+cd src && zip -qr ../empire_worldgen-0.2.0.jar .
 ```
 
 `src/` is generated, not hand-edited — `F` is a single number on the command
@@ -111,10 +114,9 @@ So this ships as an `extra_mods` entry, `side: server` (matching `terralith`).
 ## Ship steps (SHIPPING.md)
 
 1. build the jar
-2. `gh release create v0.1.0` with the jar attached
+2. `gh release create v0.2.0` with the jar attached
 3. add to `mods.json` `extra_mods` with `shasum -a 512` of the exact file
-4. `tools/postship-check.sh` must pass — `node tools/load-check.js --side server`
-   already passes with this jar staged (its only dependency, `lithostitched`,
-   is present as Terralith's own dependency)
+4. `tools/postship-check.sh` must pass — its server-side load check verifies the
+   jar's only dependency, `lithostitched`, is present through Terralith
 5. the terrain only exists in **chunks generated after this lands**, so it must
    be in the manifest *before* the world reset

@@ -10,14 +10,14 @@
       "type": "minecraft:add",
       "argument1": {
         "type": "minecraft:mul",
-        "argument1": 0.25,
+        "argument1": 0.0,
         "argument2": {
           "type": "lithostitched:wrapped_marker"
         }
       },
       "argument2": {
         "type": "minecraft:mul",
-        "argument1": 0.75,
+        "argument1": 1.0,
         "argument2": "empire_worldgen:vanilla/offset"
       }
     }
